@@ -17,7 +17,7 @@ class TestFindLCA(unittest.TestCase):
         #     / \
         #    2   3
         #   / \ / \
-        #  4  5 6  7  
+        #  4  5 6  7
 
         self.assertEqual(findLCA(root, 4, 5), 2, "LCA of 4 and 5 is 2")
         self.assertEqual(findLCA(root, 4, 6), 1, "LCA of 4 and 6 is 1")
@@ -36,6 +36,17 @@ class TestFindLCA(unittest.TestCase):
         self.assertEqual(findLCA(root, 2, 2), 2, "LCA of 2 and 2 is 2")
 
 
+    def test_NodeNotInTree(self):
+        root = Node(1)
+        root.left = Node(2)
+        root.right = Node(3)
+
+        #      1
+        #     / \
+        #    2   3
+
+        self.assertEqual(findLCA(root, 3, 6), -1, "6 is not in the tree, so returns -1")
+        self.assertEqual(findLCA(root, 6, 2), -1, "6 is not in the tree, so returns -1")
 
 if __name__ == '__main__':
     unittest.main()
