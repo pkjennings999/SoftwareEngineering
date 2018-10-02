@@ -48,5 +48,12 @@ class TestFindLCA(unittest.TestCase):
         self.assertEqual(findLCA(root, 3, 6), -1, "6 is not in the tree, so returns -1")
         self.assertEqual(findLCA(root, 6, 2), -1, "6 is not in the tree, so returns -1")
 
+    def test_NullRoot(self):
+        root = None
+
+        #     None
+
+        self.assertEqual(findLCA(root, 2, 3), -1, "None root, so result is -1")
+
 if __name__ == '__main__':
     unittest.main()
