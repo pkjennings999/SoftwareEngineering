@@ -1,12 +1,12 @@
 import unittest
-from LowestCOmmonAncestorDAG import DAG
+from LowestCommonAncestorDAG import DAG
 
 class TestLCA(unittest.TestCase):
 
     def test_NormalInput(self):
         familyTree = DAG()
-        for i in range(1, 10):
-            familyTree.addNode(i)
+        for i in range(0, 10):
+            familyTree.addNode(i + 1)
 
         familyTree.addEdge(1, 2)
         familyTree.addEdge(1, 3)
@@ -23,7 +23,7 @@ class TestLCA(unittest.TestCase):
         self.assertEqual(familyTree.LCA(2, 7), 1, "LCA of 2 and 7 is 1")
         self.assertEqual(familyTree.LCA(8, 9), 1, "LCA of 8 and 9 is 1")
         self.assertEqual(familyTree.LCA(6, 7), 3, "LCA of 6 and 7 is 3")
-  #     self.assertEqual(familyTree.LCA(3, 10), 3, "LCA of 3 and 10 is 3")
+        self.assertEqual(familyTree.LCA(3, 10), 3, "LCA of 3 and 10 is 3")
 
         #1
         #|___
@@ -36,38 +36,39 @@ class TestLCA(unittest.TestCase):
         #  |
         #  10
 
-    #def test_SelfAncestor(self):
-    #    root = Node(1)
-    #    root.left = Node(2)
-    #    root.right = Node(3)
+    def test_SelfAncestor(self):
+        familyTree = DAG()
+        for i in range(0, 3):
+            familyTree.addNode(i + 1)
+        familyTree.addEdge(1, 2)
+        familyTree.addEdge(1, 3)
 
-    #    # 1
-    #    # / \
-    #    # 2 3
-
-    #    self.assertEqual(findLCA(root, 2, 2), 2, "LCA of 2 and 2 is 2")
+        self.assertEqual(familyTree.LCA(2, 2), 2, "LCA of 2 and 2 is 2")
 
 
-    #def test_NodeNotInTree(self):
-    #    root = Node(1)
-    #    root.left = Node(2)
-    #    root.right = Node(3)
+    def test_NodeNotInGraph(self):
+        familyTree = DAG()
+        for i in range(0, 3):
+            familyTree.addNode(i + 1)
+        familyTree.addEdge(1, 2)
+        familyTree.addEdge(1, 3)
 
-    #    # 1
-    #    # / \
-    #    # 2 3
+        self.assertEqual(familyTree.LCA(3, 6), None, "6 is not in the tree, returns None")
+        self.assertEqual(familyTree.LCA(6, 2), None, "6 is not in the tree, returns -1")
 
-    #    self.assertEqual(findLCA(root, 3, 6), -1, "6 is not in the tree, so
-    #    returns -1")
-    #    self.assertEqual(findLCA(root, 6, 2), -1, "6 is not in the tree, so
-    #    returns -1")
+        self.assertEqual(familyTree.addEdge(1, 7), "One or more nodes do not exist in graph", "Node 7 does not exist in the graph")
 
-    #def test_NullRoot(self):
-    #    root = None
+    def test_AlreadyExists(self):
+        familyTree = DAG()
+        for i in range(0, 3):
+            familyTree.addNode(i + 1)
+        familyTree.addEdge(1, 2)
+        familyTree.addEdge(1, 3)
 
-    #    # None
+        # None
 
-    #    self.assertEqual(findLCA(root, 2, 3), -1, "None root, so result is
-    #    -1")
+        self.assertEqual(familyTree.addNode(1), "Node 1 already exists", "Node 1 already exits in the graph")
+        self.assertEqual(familyTree.addEdge(1, 2), "Edge from 1 to 2 already exists in graph", "Edge from 1 to 2 already exists in graph")
+
 if __name__ == '__main__':
     unittest.main()
